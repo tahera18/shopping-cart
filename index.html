@@ -81,90 +81,68 @@
    <script>
       const phonePrice = document.getElementById("phone-price").innerText;
       const phonePriceNumber = parseFloat(phonePrice);
-
+  
       const casePrice = document.getElementById("case-price").innerText;
       const casePriceNumber = parseFloat(casePrice);
-      
+  
       // phone increase 
       const incPhone = document.getElementById("inc-phone");
       incPhone.addEventListener("click", function(){
-         const currentPhone = document.getElementById("current-phone").value;
-         const currentPhoneNumber = parseFloat(currentPhone);
-         document.getElementById("current-phone").value = currentPhoneNumber + 1;
-
-         const currentPrice = document.getElementById("phone-price").innerText;
-         const currentPriceNumber = parseFloat(currentPrice);
-         document.getElementById("phone-price").innerText = currentPriceNumber + phonePriceNumber;
-
-         const subtotal = document.getElementById("subtotal").innerText;
-         const subtotalNumber = parseFloat(subtotal);
-         const updatedSubtotal = subtotalNumber + phonePriceNumber;
-
-         document.getElementById("subtotal").innerText = updatedSubtotal;
-         document.getElementById("total").innerText = updatedSubtotal;
+         updateItem("current-phone", 1);
+         updateAmount("phone-price",phonePriceNumber);
       })
-
+  
       // phone decrease
       const decPhone = document.getElementById("dec-phone");
       decPhone.addEventListener("click", function(){
-         const currentPhone = document.getElementById("current-phone").value;
-         const currentPhoneNumber = parseFloat(currentPhone);
-         if(currentPhoneNumber>0){
-            document.getElementById("current-phone").value = currentPhoneNumber - 1;
-
-         const currentPrice = document.getElementById("phone-price").innerText;
-         const currentPriceNumber = parseFloat(currentPrice);
-         document.getElementById("phone-price").innerText = currentPriceNumber - phonePriceNumber;
-
-         const subtotal = document.getElementById("subtotal").innerText;
-         const subtotalNumber = parseFloat(subtotal);
-         const updatedSubtotal = subtotalNumber - phonePriceNumber;
-
-         document.getElementById("subtotal").innerText = updatedSubtotal;
-         document.getElementById("total").innerText = updatedSubtotal;
+         const value = updateItem("current-phone", -1);
+         if(value != -1){
+            updateAmount("phone-price", -1 * phonePriceNumber);
          }
       })
-
+  
       // case increase 
       const incCase = document.getElementById("inc-case");
       incCase.addEventListener("click", function(){
-         const currentCase = document.getElementById("current-case").value;
-         const currentCaseNumber = parseFloat(currentCase);
-         document.getElementById("current-case").value = currentCaseNumber + 1;
-
-         const currentPrice = document.getElementById("case-price").innerText;
-         const currentPriceNumber = parseFloat(currentPrice);
-         document.getElementById("case-price").innerText = currentPriceNumber + casePriceNumber;
-
-         const subtotal = document.getElementById("subtotal").innerText;
-         const subtotalNumber = parseFloat(subtotal);
-         const updatedSubtotal = subtotalNumber + casePriceNumber;
-
-         document.getElementById("subtotal").innerText = updatedSubtotal;
-         document.getElementById("total").innerText = updatedSubtotal;
+         updateItem("current-case", 1);
+         updateAmount("case-price",casePriceNumber);
       })
-
+  
       // case decrease
       const decCase = document.getElementById("dec-case");
       decCase.addEventListener("click", function(){
-         const currentCase = document.getElementById("current-case").value;
-         const currentCaseNumber = parseFloat(currentCase);
-         if(currentCaseNumber>0){
-            document.getElementById("current-case").value = currentCaseNumber - 1;
 
-         const currentPrice = document.getElementById("case-price").innerText;
-         const currentPriceNumber = parseFloat(currentPrice);
-         document.getElementById("case-price").innerText = currentPriceNumber - casePriceNumber;
-
-         const subtotal = document.getElementById("subtotal").innerText;
-         const subtotalNumber = parseFloat(subtotal);
-         const updatedSubtotal = subtotalNumber - casePriceNumber;
-
-         document.getElementById("subtotal").innerText = updatedSubtotal;
-         document.getElementById("total").innerText = updatedSubtotal;
+         const value = updateItem("current-case", -1);
+         if(value != -1){
+            updateAmount("case-price", -1 * casePriceNumber);
          }
       })
-
+  
+  
+      function updateItem(id,num){
+         const currentItem = document.getElementById(id).value;
+         const currentItemNumber = parseFloat(currentItem);
+         if (num == -1 && currentItemNumber == 0) {
+            return -1;
+         } else {
+            document.getElementById(id).value = currentItemNumber + num;
+         }
+         
+      }
+  
+      function updateAmount(id,unitPrice){
+         const currentPrice = document.getElementById(id).innerText;
+         const currentPriceNumber = parseFloat(currentPrice);
+         document.getElementById(id).innerText = currentPriceNumber + unitPrice;
+  
+         const subtotal = document.getElementById("subtotal").innerText;
+         const subtotalNumber = parseFloat(subtotal);
+         const updatedSubtotal = subtotalNumber + unitPrice;
+  
+         document.getElementById("subtotal").innerText = updatedSubtotal;
+         document.getElementById("total").innerText = updatedSubtotal;
+      }
+  
    </script>
 </body>
 
